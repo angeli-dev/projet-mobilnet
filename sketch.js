@@ -1,3 +1,6 @@
+var database;
+var submitButton;
+
 // Initialize the Image Classifier method with MobileNet. A callback needs to be passed.
 const classifier = ml5.imageClassifier("MobileNet", modelReady);
 
@@ -8,7 +11,34 @@ function setup() {
   noCanvas();
   // Load the image
   img = createImg("images/nuage.jpg", imageReady);
-  img.size(400, 400);
+  img.size(200, 200);
+  submitButton = createButton("submit");
+  submitButton.mousePressed(submitNuage);
+  var firebaseConfig = {
+    apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
+    authDomain: "p5-nuages.firebaseapp.com",
+    projectId: "p5-nuages",
+    databaseURL: "https://p5-nuages-default-rtdb.firebaseio.com/",
+    storageBucket: "p5-nuages.appspot.com",
+    messagingSenderId: "1088666157965",
+    appId: "1:1088666157965:web:22f84149ed1785fefc73c4",
+    measurementId: "G-K8DJ42LV4T",
+  };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  console.log(firebase);
+
+  database = firebase.database();
+}
+
+function submitNuage() {
+  var data = {
+    nuage: img,
+    //results: 45,
+  };
+  console.log(data);
+  var ref = database.ref("nuages");
+  ref.push(data);
 }
 
 // Change the status when the model loads.
