@@ -37,7 +37,8 @@ body {
     border-radius: 33px;
 }
 
-#text-container {
+#text-container,
+#library-container {
     height: 100px;
     width: 100%;
     text-align: center;
@@ -82,6 +83,7 @@ body {
     cursor: pointer;
     border-radius: 10px;
 }
+
 .btn:hover {
     color: white;
     background-color: #0bcf82;
