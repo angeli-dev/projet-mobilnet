@@ -161,6 +161,7 @@ ref
         p_res.innerText =
           "Mobilenet : " +
           meta_res +
+          " " +
           Number.parseFloat(meta_pro).toFixed(2) +
           "%";
         p_hum.innerText = "User : " + meta_hum;
