@@ -3,6 +3,7 @@ const dropContainer = document.getElementById("container");
 const warning = document.getElementById("warning");
 const fileInput = document.getElementById("fileUploader");
 const textInput = document.getElementById("textUploader");
+const libContainer = document.getElementById("librairy-container");
 let file, resultTxt, prob;
 
 function preventDefaults(e) {
@@ -105,7 +106,7 @@ function classifyImage() {
 }
 
 //Connection à la base de données
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
   authDomain: "p5-nuages.firebaseapp.com",
   projectId: "p5-nuages",
@@ -116,11 +117,9 @@ var firebaseConfig = {
   measurementId: "G-K8DJ42LV4T",
 };
 firebase.initializeApp(firebaseConfig);
-console.log(firebase);
+const ref = firebase.storage().ref();
 
 function clickSaver() {
-  console.log(file);
-  const ref = firebase.storage().ref();
   const name = new Date() + "-" + file.name;
   const metadata = {
     contentType: file.type,
@@ -139,3 +138,16 @@ function clickSaver() {
     })
     .catch(console.error);
 }
+
+// Find all the prefixes and items.
+ref
+  .listAll()
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      console.log(itemRef.getDownloadURL());
+      console.log(itemRef.getMetadata().PromiseResult());
+    });
+  })
+  .catch((error) => {
+    // Uh-oh, an error occurred!
+  });
