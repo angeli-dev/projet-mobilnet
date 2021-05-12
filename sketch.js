@@ -150,7 +150,7 @@ ref
         img.src = url;
         div.appendChild(img);
       });
-      setTimeout(50);
+      setTimeout(100);
       itemRef.getMetadata().then((metadata) => {
         var meta_res = metadata.customMetadata.result;
         var meta_pro = metadata.customMetadata.probability;
