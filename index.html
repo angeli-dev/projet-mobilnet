@@ -22,6 +22,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-storage.js"></script>
 
 </head>
+<<<<<<< HEAD
 <body onresize="windowResized()">
   <div id="container">
     <img src="images/nuage.jpg" id="image" class="center">
@@ -45,6 +46,38 @@
         <input name="txtFile" type="text" value='an elephant' id="textUploader">
         <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
       </p>
+=======
+
+<body>
+
+  <body onresize="windowResized()">
+    <div id="container">
+      <img src="images/nuage.jpg" id="image" class="center">
+      <div id="text-container">
+        <p id="instruction" class="green-color">
+          <button class="btn" id="uploader-btn" onClick="clickUploader()">Upload Image</button>
+          <p class="green-color "> or drag and drop 📂</p>
+        </p>
+        <p id="warning" class="result-color"></p>
+        <p class="result-color">
+          The MobileNet model labeled this ⤴ as a
+          <span id="result" class="green-color">...</span>
+          <span id="probability-container" class="result-color">
+            with a confidence of
+            <span id="probability" class="green-color">...</span>.
+          </span>
+        </p>
+        <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
+        <p class="green-color">
+          What do you imagine ? 💭
+          <input name="txtFile" type="text" value='an elephant' id="textUploader">
+          <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
+        </p>
+      </div>
+
+    </div>
+    <div id="library-container">
+>>>>>>> main
     </div>
   </div>
   <button class="btn" onclick="window.location.href='about.html'">Want to know more about the projet ?</button>

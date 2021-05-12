@@ -3,6 +3,7 @@ const dropContainer = document.getElementById("container");
 const warning = document.getElementById("warning");
 const fileInput = document.getElementById("fileUploader");
 const textInput = document.getElementById("textUploader");
+const libContainer = document.getElementById("library-container");
 let file, resultTxt, prob;
 
 function preventDefaults(e) {
@@ -105,7 +106,7 @@ function classifyImage() {
 }
 
 //Connection à la base de données
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
   authDomain: "p5-nuages.firebaseapp.com",
   projectId: "p5-nuages",
@@ -116,11 +117,9 @@ var firebaseConfig = {
   measurementId: "G-K8DJ42LV4T",
 };
 firebase.initializeApp(firebaseConfig);
-console.log(firebase);
+const ref = firebase.storage().ref();
 
 function clickSaver() {
-  console.log(file);
-  const ref = firebase.storage().ref();
   const name = new Date() + "-" + file.name;
   const metadata = {
     contentType: file.type,
@@ -139,3 +138,39 @@ function clickSaver() {
     })
     .catch(console.error);
 }
+
+ref
+  .listAll()
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      var div = document.createElement("div");
+      // All the items under listRef.
+      itemRef.getDownloadURL().then((url) => {
+        var img = document.createElement("img");
+        img.src = url;
+        div.appendChild(img);
+      });
+      setTimeout(100);
+      itemRef.getMetadata().then((metadata) => {
+        var meta_res = metadata.customMetadata.result;
+        var meta_pro = metadata.customMetadata.probability;
+        var meta_hum = metadata.customMetadata.human;
+        var p_res = document.createElement("p");
+        var p_pro = document.createElement("p");
+        var p_hum = document.createElement("p");
+        p_res.innerText =
+          "Mobilenet : " +
+          meta_res +
+          " " +
+          Number.parseFloat(meta_pro).toFixed(2) +
+          "%";
+        p_hum.innerText = "User : " + meta_hum;
+        div.appendChild(p_res);
+        div.appendChild(p_hum);
+      });
+      libContainer.appendChild(div);
+    });
+  })
+  .catch((error) => {
+    // Uh-oh, an error occurred!
+  });
