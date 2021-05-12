@@ -2,70 +2,10 @@ var storage;
 var ref;
 var submitButton;
 var IA_predicts;
-var dropzone;
 
-let img, bg, hover;
-
-// Initialize the Image Classifier method with MobileNet. A callback needs to be passed.
-const classifier = ml5.imageClassifier("MobileNet", modelReady);
-
-function setup() {
-  //drag and drop
-  createCanvas(400, 400).drop(gotFile).dragOver(highlight).dragLeave(redraw);
-
-  textAlign(CENTER).textSize(32).textStyle(BOLD).noLoop();
-  colorMode(RGB).imageMode(CORNER);
-  fill("yellow").noStroke();
-
-  bg = color(0o200);
-  hover = color("red");
-  /*
-  var saveButton = select("#saveButton");
-  //saveButton.mousePressed(saveNuage);
-
-  //Connection à la base de données
-  var firebaseConfig = {
-    apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
-    authDomain: "p5-nuages.firebaseapp.com",
-    projectId: "p5-nuages",
-    databaseURL: "https://p5-nuages-default-rtdb.firebaseio.com/",
-    storageBucket: "p5-nuages.appspot.com",
-    messagingSenderId: "1088666157965",
-    appId: "1:1088666157965:web:22f84149ed1785fefc73c4",
-    measurementId: "G-K8DJ42LV4T",
-  };
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-  storage = firebase.storage();
-  ref = firebase.storage().ref();
-  console.log(img);*/
-}
-function draw() {
-  background(bg);
-
-  if (img) {
-    image(img, 0, 0, width, height);
  
-  } else {
-    textSize(20);
-    textAlign(CENTER);
-    text("Drag an image file onto the canvas.", width / 2, height / 2);
-  }
-}
 
-function gotFile(f) {
-  if (f.type === "image") {
-    img = loadImage(f.data, redraw);
-    
-  } else {
-    print(`"${f.name}" isn't an image file!`);
-  }
-}
 
-function highlight(evt) {
-  this.background(hover);
-  evt.preventDefault();
-}
 /*
 function saveNuage() {
   const file = "images/nuages.jpg";
@@ -84,36 +24,107 @@ function saveNuage() {
     .catch(console.error);
 }
 */
-// Change the status when the model loads.
-function modelReady() {
-  select("#status").html("Model Loaded");
+
+const image = document.getElementById("image"); // The image we want to classify
+const dropContainer = document.getElementById("container");
+const warning = document.getElementById("warning");
+const fileInput = document.getElementById("fileUploader");
+
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
 }
 
-// When the image has been loaded,
-// get a prediction for that image
-function imageReady() {
-  classifier.predict(img, 10, gotResult);
-  // You can also specify the amount of classes you want
-  // classifier.predict(img, 5, gotResult);
-}
-
-// A function to run when we get any errors and the results
-function gotResult(err, results) {
-  if (err) {
-    console.error(err);
+function windowResized() {
+  let windowW = window.innerWidth;
+  if (windowW < 480 && windowW >= 200) {
+    image.style.maxWidth = windowW - 80;
+    dropContainer.style.display = "block";
+  } else if (windowW < 200) {
+    dropContainer.style.display = "none";
+  } else {
+    image.style.maxWidth = "90%";
+    dropContainer.style.display = "block";
   }
-  IA_predicts = results;
-  // Create header for results
-  let resultDisplay = createDiv("MobileNet predictions");
-  resultDisplay.class("results");
-  createSpan("Class -> ");
-  createSpan("Probability");
+}
 
-  // Show all results as a list
-  results.forEach(function (result) {
-    console.log(result.className);
-    createDiv(
-      `${result.className}, -> ${Math.round(result.probability * 100)}%`
-    );
+["dragenter", "dragover"].forEach((eventName) => {
+  dropContainer.addEventListener(
+    eventName,
+    (e) => dropContainer.classList.add("highlight"),
+    false
+  );
+});
+
+["dragleave", "drop"].forEach((eventName) => {
+  dropContainer.addEventListener(
+    eventName,
+    (e) => dropContainer.classList.remove("highlight"),
+    false
+  );
+});
+
+["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+  dropContainer.addEventListener(eventName, preventDefaults, false);
+});
+
+dropContainer.addEventListener("drop", gotImage, false);
+
+function gotImage(e) {
+  const dt = e.dataTransfer;
+  const files = dt.files;
+  if (files.length > 1) {
+    console.error("upload only one file");
+  }
+  const file = files[0];
+  const imageType = /image.*/;
+  if (file.type.match(imageType)) {
+    warning.innerHTML = "";
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      image.src = reader.result;
+      setTimeout(classifyImage, 100);
+    };
+  } else {
+    image.src = "images/bird.jpg";
+    setTimeout(classifyImage, 100);
+    warning.innerHTML = "Please drop an image file.";
+  }
+}
+
+function handleFiles() {
+  const curFiles = fileInput.files;
+  if (curFiles.length === 0) {
+    image.src = "images/bird.jpg";
+    setTimeout(classifyImage, 100);
+    warning.innerHTML = "No image selected for upload";
+  } else {
+    image.src = window.URL.createObjectURL(curFiles[0]);
+    warning.innerHTML = "";
+    setTimeout(classifyImage, 100);
+  }
+}
+
+function clickUploader() {
+  fileInput.click();
+}
+
+const result = document.getElementById("result"); // The result tag in the HTML
+const probability = document.getElementById("probability"); // The probability tag in the HTML
+
+// Initialize the Image Classifier method
+const classifier = ml5.imageClassifier("Mobilenet", () => {});
+
+// Make a prediction with the selected image
+// This will return an array with a default of 10 options with their probabilities
+classifyImage();
+
+function classifyImage() {
+  classifier.predict(image, (err, results) => {
+    let resultTxt = results[0].className;
+    result.innerText = resultTxt;
+    let prob = 100 * results[0].probability;
+    probability.innerText = Number.parseFloat(prob).toFixed(2) + "%";
   });
 }
