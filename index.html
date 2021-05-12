@@ -32,7 +32,6 @@
         <p id="instruction" class="green-color">
           <button class="btn" id="uploader-btn" onClick="clickUploader()">Upload Image</button>
           <p class="green-color "> or drag and drop 📂</p>
-          <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
         </p>
         <p id="warning" class="result-color"></p>
         <p class="result-color">
@@ -44,6 +43,11 @@
           </span>
         </p>
         <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
+        <p class="green-color">
+          What do you see ?
+          <input name="txtFile" type="text" value='an elephant' id="textUploader">
+          <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
+        </p>
       </div>
     </div>
 

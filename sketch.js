@@ -2,6 +2,7 @@ const image = document.getElementById("image"); // The image we want to classify
 const dropContainer = document.getElementById("container");
 const warning = document.getElementById("warning");
 const fileInput = document.getElementById("fileUploader");
+const textInput = document.getElementById("textUploader");
 let file, resultTxt, prob;
 
 function preventDefaults(e) {
@@ -126,6 +127,7 @@ function clickSaver() {
     customMetadata: {
       result: resultTxt,
       probability: prob,
+      human: textInput.value,
     },
   };
   const task = ref.child(name).put(file, metadata);
