@@ -70,7 +70,7 @@ body {
     opacity: 0;
 }
 
-#uploader-btn {
+.btn {
     background: #faebd700;
     margin-top: 1em;
     color: #0bcf81;
@@ -82,8 +82,7 @@ body {
     cursor: pointer;
     border-radius: 10px;
 }
-
-#uploader-btn:hover {
+.btn:hover {
     color: white;
     background-color: #0bcf82;
     border: solid 1px #0bcf82;

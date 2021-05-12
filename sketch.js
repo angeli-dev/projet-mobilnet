@@ -1,34 +1,8 @@
-var storage;
-var ref;
-var submitButton;
-var IA_predicts;
-
- 
-
-
-/*
-function saveNuage() {
-  const file = "images/nuages.jpg";
-  const name = new Date() + "-nuage.jpg";
-  var metadata = {
-    contentType: "image/jpg",
-    //predictions: IA_predicts,
-  };
-  const task = ref.child(name).put(file, metadata);
-  task
-    .then((snapshot) => snapshot.ref.getDownloadURL())
-    .then((url) => {
-      console.log(url);
-      //document.querySelector("#image").src = url;
-    })
-    .catch(console.error);
-}
-*/
-
 const image = document.getElementById("image"); // The image we want to classify
 const dropContainer = document.getElementById("container");
 const warning = document.getElementById("warning");
 const fileInput = document.getElementById("fileUploader");
+let file, resultTxt, prob;
 
 function preventDefaults(e) {
   e.preventDefault();
@@ -76,7 +50,7 @@ function gotImage(e) {
   if (files.length > 1) {
     console.error("upload only one file");
   }
-  const file = files[0];
+  file = files[0];
   const imageType = /image.*/;
   if (file.type.match(imageType)) {
     warning.innerHTML = "";
@@ -87,7 +61,7 @@ function gotImage(e) {
       setTimeout(classifyImage, 100);
     };
   } else {
-    image.src = "images/bird.jpg";
+    image.src = "images/nuage.jpg";
     setTimeout(classifyImage, 100);
     warning.innerHTML = "Please drop an image file.";
   }
@@ -96,7 +70,7 @@ function gotImage(e) {
 function handleFiles() {
   const curFiles = fileInput.files;
   if (curFiles.length === 0) {
-    image.src = "images/bird.jpg";
+    image.src = "images/nuage.jpg";
     setTimeout(classifyImage, 100);
     warning.innerHTML = "No image selected for upload";
   } else {
@@ -122,9 +96,44 @@ classifyImage();
 
 function classifyImage() {
   classifier.predict(image, (err, results) => {
-    let resultTxt = results[0].className;
+    resultTxt = results[0].className;
     result.innerText = resultTxt;
-    let prob = 100 * results[0].probability;
+    prob = 100 * results[0].probability;
     probability.innerText = Number.parseFloat(prob).toFixed(2) + "%";
   });
+}
+
+//Connection à la base de données
+var firebaseConfig = {
+  apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
+  authDomain: "p5-nuages.firebaseapp.com",
+  projectId: "p5-nuages",
+  databaseURL: "https://p5-nuages-default-rtdb.firebaseio.com/",
+  storageBucket: "p5-nuages.appspot.com",
+  messagingSenderId: "1088666157965",
+  appId: "1:1088666157965:web:22f84149ed1785fefc73c4",
+  measurementId: "G-K8DJ42LV4T",
+};
+firebase.initializeApp(firebaseConfig);
+console.log(firebase);
+
+function clickSaver() {
+  console.log(file);
+  const ref = firebase.storage().ref();
+  const name = new Date() + "-" + file.name;
+  const metadata = {
+    contentType: file.type,
+    customMetadata: {
+      result: resultTxt,
+      probability: prob,
+    },
+  };
+  const task = ref.child(name).put(file, metadata);
+  task
+    .then((snapshot) => snapshot.ref.getDownloadURL())
+    .then((url) => {
+      console.log(url);
+      file.src = url;
+    })
+    .catch(console.error);
 }

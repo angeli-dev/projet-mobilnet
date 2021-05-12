@@ -10,10 +10,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Image classification using MobileNet and p5.js</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="./libraries/p5.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
-  <script src="./libraries/p5.sound.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+  <script src="./libraries/p5.sound.min.js"></script>
   <script src="./libraries/ml5.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
@@ -21,44 +21,34 @@
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-storage.js"></script>
 
-
-  <style>
-    .results {
-      font-weight: bold;
-    }
-
-    img {
-      margin-bottom: 20px;
-    }
-  </style>
-
 </head>
 
 <body>
 
- <body onresize="windowResized()">
-   <div id="container">
-     <img src="images/nuage.jpg" id="image" class="center">
-     <div id="text-container">
-       <p id="instruction" class="green-color">
-         <button id="uploader-btn" onClick="clickUploader()">Upload Image</button>
-         <p class="green-color "> or drag and drop 📂</p>
-       </p>
-       <p id="warning" class="result-color"></p>
-       <p class="result-color">
-         The MobileNet model labeled this ⤴ as a
-         <span id="result" class="green-color">...</span>
-         <span id="probability-container" class="result-color">
-           with a confidence of
-           <span id="probability" class="green-color">...</span>.
-         </span>
-       </p>
-       <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
-     </div>
-   </div>
-  
-  <script src="sketch.js"></script>
-</body>
+  <body onresize="windowResized()">
+    <div id="container">
+      <img src="images/nuage.jpg" id="image" class="center">
+      <div id="text-container">
+        <p id="instruction" class="green-color">
+          <button class="btn" id="uploader-btn" onClick="clickUploader()">Upload Image</button>
+          <p class="green-color "> or drag and drop 📂</p>
+          <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
+        </p>
+        <p id="warning" class="result-color"></p>
+        <p class="result-color">
+          The MobileNet model labeled this ⤴ as a
+          <span id="result" class="green-color">...</span>
+          <span id="probability-container" class="result-color">
+            with a confidence of
+            <span id="probability" class="green-color">...</span>.
+          </span>
+        </p>
+        <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
+      </div>
+    </div>
+
+    <script src="sketch.js"></script>
+  </body>
 
 
 </html>
