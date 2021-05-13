@@ -77,7 +77,6 @@ body {
 
 .btn {
     background: #faebd700;
-    margin-top: 1em;
     color: #0bcf81;
     border: solid 1px #0bcf81;
     padding: .6em 2em;
@@ -96,4 +95,16 @@ body {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+h1 {
+    margin: 0 5rem;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0;
 }
