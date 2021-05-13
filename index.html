@@ -15,6 +15,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-storage.js"></script>
 
 </head>
+
 <body onresize="windowResized()">
   <menu type="toolbar" class="nav">
     <button class="btn" onclick="window.location.href='library.html'">Want to explore the cloud library ?</button>
@@ -38,14 +39,15 @@
           <span id="probability" class="green-color">...</span>.
         </span>
       </p>
-      <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
+
       <p id="question" class="green-color">
         What do you imagine ? 💭
         <input name="txtFile" type="text" placeholder='an elephant' id="textUploader">
         <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
       </p>
-    </div>
+    </div><input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
   </div>
-<script src="sketch.js"></script>
+  <script src="sketch.js"></script>
 </body>
+
 </html>
