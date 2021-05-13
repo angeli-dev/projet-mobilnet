@@ -22,8 +22,8 @@
     <button class="btn" onclick="window.location.href='about.html'">Want to know more about the projet ?</button>
   </menu>
   <div id="container">
+    <img src="images/cloud.png" alt="" class="illu">
     <img src="images/nuage.jpg" id="image" class="center">
-
     <div id="text-container">
       <p id="instruction" class="green-color">
         <button class="btn" id="uploader-btn" onClick="clickUploader()">Upload Image</button>
@@ -41,7 +41,7 @@
       <input name="imgFile" type="file" id="fileUploader" accept="image/*" onChange="handleFiles()">
       <p id="question" class="green-color">
         What do you imagine ? 💭
-        <input name="txtFile" type="text" value='an elephant' id="textUploader">
+        <input name="txtFile" type="text" placeholder='an elephant' id="textUploader">
         <button class="btn" id="save-btn" onClick="clickSaver()">Save Image in the sharing library</button>
       </p>
     </div>
