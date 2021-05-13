@@ -120,3 +120,13 @@ h1 {
 .illu {
     position: absolute;
 }
+
+#library-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#library-container img {
+    width: 250px;
+}
