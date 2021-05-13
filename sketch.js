@@ -1,5 +1,8 @@
 const image = document.getElementById("image"); // The image we want to classify
-const dropContainer = document.getElementById("container");
+var dropContainer = document.getElementById("container");
+if (!dropContainer) {
+  dropContainer = document.getElementById("library-container");
+}
 const warning = document.getElementById("warning");
 const fileInput = document.getElementById("fileUploader");
 const textInput = document.getElementById("textUploader");
@@ -63,7 +66,7 @@ function gotImage(e) {
       setTimeout(classifyImage, 100);
     };
   } else {
-    image.src = "images/nuage.jpg";
+    image.src = "images/nuages.jpg";
     setTimeout(classifyImage, 100);
     warning.innerHTML = "Please drop an image file.";
   }
@@ -72,7 +75,7 @@ function gotImage(e) {
 function handleFiles() {
   const curFiles = fileInput.files;
   if (curFiles.length === 0) {
-    image.src = "images/nuage.jpg";
+    image.src = "images/nuages.jpg";
     setTimeout(classifyImage, 100);
     warning.innerHTML = "No image selected for upload";
   } else {
@@ -149,8 +152,9 @@ ref
         var img = document.createElement("img");
         img.src = url;
         div.appendChild(img);
+        div.className = "card-lib";
       });
-      setTimeout(100);
+      setTimeout(200);
       itemRef.getMetadata().then((metadata) => {
         var meta_res = metadata.customMetadata.result;
         var meta_pro = metadata.customMetadata.probability;
