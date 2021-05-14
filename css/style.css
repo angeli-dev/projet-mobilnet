@@ -31,6 +31,7 @@ body {
 h1 {
     color: white;
     margin: 0 5rem;
+    text-align: center;
 }
 
 #image {
@@ -170,7 +171,7 @@ h1 {
 }
 
 #clouds_animation {
-    padding: 100px 0;
+    padding: 80px 0;
     background: #739fc0;
     background: -webkit-linear-gradient(top, #739fc0 0%, #c9dbe9 100%);
     background: -linear-gradient(top, #739fc0 0%, #c9dbe9 100%);
