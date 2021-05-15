@@ -1,27 +1,27 @@
 @font-face {
-    font-family: 'Apercu';
+    font-family: 'Wildstripe';
     font-style: normal;
-    src:
-        local('Apercu'),
-        local('Apercu Pro Regular'),
-        url('https://ml5js.github.io/ml5-homepage-demo/css/ApercuRegular.ttf') format('truetype');
-    /* Use the following link if running locally */
-    /* url('/css/ApercuRegular.ttf') format('truetype'); */
+    src: url('../fonts/Wildstripe.otf');
+
 }
 
 @font-face {
-    font-family: 'Apercu Bold';
-    font-style: bold;
-    src:
-        local('Apercu Pro Regular'),
-        url('https://ml5js.github.io/ml5-homepage-demo/css/ApercuBold.ttf') format('truetype');
+    font-family: 'Avenir-Bold';
+    font-style: normal;
+    src: url('../fonts/Avenir-Black.otf');
+}
+
+@font-face {
+    font-family: 'Avenir';
+    font-style: normal;
+    src: url('../fonts/Avenir-Roman.otf');
 }
 
 html,
 body {
     margin: 0;
     padding: 0;
-    font-family: Apercu;
+    font-family: Avenir;
     background-color: #c9dbe9;
     display: flex;
     flex-direction: column;
@@ -29,6 +29,7 @@ body {
 }
 
 h1 {
+    font-family: Wildstripe;
     color: white;
     margin: 0 5rem;
     text-align: center;
@@ -98,7 +99,7 @@ h1 {
     padding: .6em 2em;
     line-height: 2;
     font-size: 12px;
-    font-family: Apercu;
+    font-family: Avenir-Bold;
     cursor: pointer;
     border-radius: 10px;
 }
@@ -120,7 +121,7 @@ h1 {
     padding: .6em 2em;
     line-height: 2;
     font-size: 12px;
-    font-family: Apercu;
+    font-family: Avenir-Bold;
     cursor: pointer;
     border-radius: 10px;
 }
