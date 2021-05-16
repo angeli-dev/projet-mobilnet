@@ -330,6 +330,10 @@ h1 {
     .btn {
         text-align: center;
     }
+
+    #container-about {
+        margin-top: -20vh;
+    }
 }
 
 /* Medium devices*/
