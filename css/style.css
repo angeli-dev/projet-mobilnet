@@ -48,7 +48,7 @@ h1 {
     padding: 50px;
     font-size: 14px;
     border-radius: 33px;
-    margin-top: -35%;
+    margin-top: -75vh;
 }
 
 
@@ -309,5 +309,39 @@ h1 {
 
     100% {
         margin-left: -1000px;
+    }
+}
+
+
+
+@media (max-width: 575.98px) {}
+
+/*Small devices */
+@media (max-width: 767.98px) {
+    #container {
+        margin-top: -20vh;
+        min-height: 100vh;
+    }
+
+    .nav {
+        display: block;
+    }
+
+    .btn {
+        text-align: center;
+    }
+}
+
+/* Medium devices*/
+@media (min-width: 1198.98px) {
+    #container {
+        margin-top: -75vh;
+    }
+}
+
+/* Large devices */
+@media (min-width: 1598.98px) {
+    #container {
+        margin-top: -45vh;
     }
 }
