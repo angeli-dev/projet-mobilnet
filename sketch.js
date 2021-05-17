@@ -27,6 +27,7 @@ function windowResized() {
   }
 }
 
+//drag and drop
 ["dragenter", "dragover"].forEach((eventName) => {
   dropContainer.addEventListener(
     eventName,
@@ -108,7 +109,7 @@ function classifyImage() {
   });
 }
 
-//Connection à la base de données
+//Connexion à la base de données
 const firebaseConfig = {
   apiKey: "AIzaSyASRtt6ShRqK7dKVuFmXIStUeNjIhe05Pc",
   authDomain: "p5-nuages.firebaseapp.com",
@@ -122,7 +123,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const ref = firebase.storage().ref();
 
+//Save the image
 function clickSaver() {
+  console.log(file);
   const name = new Date() + "-" + file.name;
   const metadata = {
     contentType: file.type,
@@ -142,6 +145,7 @@ function clickSaver() {
     .catch(console.error);
 }
 
+//Retrieve all images
 ref
   .listAll()
   .then((res) => {
